@@ -6,9 +6,19 @@ A, B, V = list(map(int, sys.stdin.readline().rsplit()))
 # 5 1 6                -> 2 (5 + 4 * 1)
 # 100 99 1000000000    -> 999999901 (100 + 1 * 999999900)
 
-n = V // (A-B)
+if (A >= V):
+    cnt = 0
+else:
+    cnt = 1
 
-V -= n * (A-B)
+res = V-A
 
+if (A-B) >= res:
+    cnt += 1
+else:
+    if res % (A-B) == 0:
+        cnt += res // (A-B)
+    else:
+        cnt += (res // (A-B)) +1
 
-
+print(cnt)

@@ -6,11 +6,13 @@ def num_op(s, e):
     start = s+1
     end = e-1
 
+    # 2 -> 3 -> 4 -> 5 -> ... -> k -> 1일 때,   
+
     count = 0
     choice = [2, 1, 0]
 
     while True:
-        if start >= end:
+        if start == end:
             break
         
         for c in choice:
