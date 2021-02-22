@@ -10,11 +10,6 @@ def dijkstra(graph, start):
 
 
 
-
-
-
-
-
 # number of vertex, edge: V,E 
 V,E = map(int, sys.stdin.readline().rsplit())
 
