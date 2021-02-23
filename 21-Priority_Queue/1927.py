@@ -1,6 +1,6 @@
 import sys
 
-class MaxHeap:
+class MinHeap:
     def __init__(self):
         self.queue = []
 
@@ -10,25 +10,25 @@ class MaxHeap:
 
         while last_idx >= 0:
             parent_idx = self.parent(last_idx)
-            if 0 <= parent_idx and self.queue[parent_idx] < self.queue[last_idx]:
+            if 0 <= parent_idx and self.queue[parent_idx] > self.queue[last_idx]:
                 self.swap(last_idx, parent_idx)
                 last_idx = parent_idx 
             else:
                 break
 
-    def maxHeapify(self,i):
+    def minHeapify(self,i):
         left_idx = self.left_child(i)
         right_idx = self.right_child(i)
-        max_idx = i
+        min_idx = i
 
-        if left_idx <= len(self.queue)-1 and self.queue[max_idx] <= self.queue[left_idx]:
-            max_idx = left_idx
-        if right_idx <= len(self.queue)-1 and self.queue[max_idx] <= self.queue[right_idx]:
-            max_idx = right_idx
+        if left_idx <= len(self.queue)-1 and self.queue[min_idx] >= self.queue[left_idx]:
+            min_idx = left_idx
+        if right_idx <= len(self.queue)-1 and self.queue[min_idx] >= self.queue[right_idx]:
+            min_idx = right_idx
         
-        if max_idx != i:
-            self.swap(i, max_idx)
-            self.maxHeapify(max_idx)
+        if min_idx != i:
+            self.swap(i, min_idx)
+            self.minHeapify(min_idx)
 
     def parent(self, idx):
         return (idx-1)//2
@@ -48,15 +48,15 @@ class MaxHeap:
             print(0)
             return
         self.swap(0, last_idx)
-        maxv = self.queue.pop()
-        self.maxHeapify(0)
-        print(maxv)
-        return maxv 
+        minv = self.queue.pop()
+        self.minHeapify(0)
+        print(minv)
+        return minv 
 
 
 n = int(sys.stdin.readline().rstrip())
 
-heap = MaxHeap()
+heap = MinHeap()
 
 for _ in range(n):
     x = int(sys.stdin.readline().rstrip())
