@@ -2,20 +2,19 @@ import sys
 
 N = int(sys.stdin.readline().rstrip())
 
-paper = [list(map(int, sys.stdin.readline().rsplit())) for _ in range(N)]
+paper = [ list(str(sys.stdin.readline().strip())) for _ in range(N) ]
 
-cnt1 = 0 # 1
-cnt2 = 0 # 0
+ans = ""
 
 def check(unit_paper):
     # print(unit_paper)
     N = len(unit_paper)
     s = 0
     for i in range(N):
-        s += sum(unit_paper[i])
+        s += sum(map(int,unit_paper[i]))
 
     if N == 1:
-        if unit_paper[0][0] == 1:
+        if unit_paper[0][0] == '1':
             return '11'
         else:
             return '10'
@@ -28,24 +27,28 @@ def check(unit_paper):
         return '~'
 
 def divide(paper):
-    global cnt1, cnt2
+    #print(paper)
+    global ans
     a = check(paper)
     if a == '11' or a == '*1':
-        cnt1 += 1
+        ans += '1'
         # print("cnt1")
         return
     elif a == '10' or a == '*0':
-        cnt2 += 1
+        ans += '0'
         # print("cnt2")
         return
     else: # keep going
         N = len(paper)
+        ans += '('
+
         divide([row[:N//2] for row in paper[:N//2]])
-        divide([row[:N//2] for row in paper[N//2:]])
         divide([row[N//2:] for row in paper[:N//2]])
+        divide([row[:N//2] for row in paper[N//2:]])
         divide([row[N//2:] for row in paper[N//2:]])
+
+        ans += ')'
 
 divide(paper)
 
-print(cnt2)
-print(cnt1)
+print(ans)
